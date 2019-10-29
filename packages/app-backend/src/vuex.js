@@ -343,7 +343,7 @@ class VuexBackend {
     return stringify({
       state: this.store.state,
       getters: getCatchedGetters(this.store),
-      modules: Object.keys(this.store._modulesNamespaceMap)
+      modules: Object.keys(this.store._modulesNamespaceMap || {})
         .map(m => m.substr(0, m.length - 1))
         .sort()
     })
@@ -559,6 +559,7 @@ class VuexBackend {
    * Get the serialized state and getters from the store
    */
   getStoreSnapshot (stateSnapshot = null) {
+    console.log(stateSnapshot)
     let originalVm
     if (stateSnapshot) {
       originalVm = this.store._vm
